@@ -9,7 +9,13 @@
 *[Leave empty for you to fill in your plain-language explanation of the pricing formula]*
 
 ## What Was Deliberately Not Built
-*[Leave empty for you to fill in what you chose to skip due to the 24-hour constraint]*
+*   **Real Authentication:** 
+    *   *Prompt for Dale/Reviewer:* The owner panel uses a simple base64 encoded string of the username and password as a "token", without JWT signing, expiration, or server-side revocation on logout. 
+    *   *[Leave empty for you to fill in your rationale for this scope cut]*
+*   **Secure Token Storage:**
+    *   *Prompt for Dale/Reviewer:* The frontend stores this token in `localStorage`, which carries XSS exposure risks, rather than a secure, HttpOnly cookie.
+    *   *[Leave empty for you to fill in your rationale for this scope cut]*
+*[Leave empty for you to fill in any other items skipped]*
 
 ## Seed Data Oddities & Handling
 *[Leave empty for you to explain how you handled things like string multipliers or historical lead structures]*
