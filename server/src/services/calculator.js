@@ -3,7 +3,6 @@ export function calculateEstimate(config, answers) {
 
   const roofArea = Number(answers['roof_area'] || 0);
 
-  // Find selected option helpers
   const getSelectedOption = (questionKey) => {
     const q = questions.find(item => item.key === questionKey);
     if (!q || !q.options) return null;
@@ -16,7 +15,6 @@ export function calculateEstimate(config, answers) {
   const layersOpt = getSelectedOption('layers');
   const storiesOpt = getSelectedOption('stories');
 
-  // Extract rates (parse numbers safely in case string floats exist)
   const ratePerSqft = Number(materialOpt?.rate_per_sqft || 0);
   const pitchMult = Number(pitchOpt?.multiplier || 1.0);
   const tearOffPerSqft = Number(layersOpt?.tear_off_per_sqft || 0);
@@ -26,7 +24,6 @@ export function calculateEstimate(config, answers) {
   const permitFee = Number(modifiers.permit_flat_fee || 350);
   const spreadPct = Number(modifiers.range_spread_pct || 12) / 100;
 
-  // Perform core arithmetic
   const baseMaterialCost = roofArea * ratePerSqft * (1 + wasteFactor);
   const tearOffCost = roofArea * tearOffPerSqft;
   const subtotal = (baseMaterialCost + tearOffCost) * pitchMult * storiesMult;

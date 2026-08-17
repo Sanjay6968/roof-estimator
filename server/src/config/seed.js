@@ -6,7 +6,6 @@ export const seedDatabase = async () => {
   try {
     const configCount = await Config.countDocuments();
     if (configCount === 0) {
-      console.log('Seeding initial configuration...');
       const seedConfig = {
         config_version: 3,
         business: { name: "Northline Roofing & Exteriors", region: "Columbus, OH", currency: "USD" },
@@ -20,7 +19,7 @@ export const seedDatabase = async () => {
           ] },
           { key: "pitch", label: "How steep is the roof?", type: "select", required: true, active: true, options: [
             { value: "low", label: "Low - you could walk on it", multiplier: 1.0 },
-            { value: "medium", label: "Medium", multiplier: 1.12 }, // Normalized string to number based on instructions
+            { value: "medium", label: "Medium", multiplier: 1.12 },
             { value: "steep", label: "Steep - not walkable", multiplier: 1.30 }
           ] },
           { key: "layers", label: "How many layers of old roofing are on there now?", type: "select", required: true, active: true, options: [
@@ -37,21 +36,18 @@ export const seedDatabase = async () => {
         modifiers: { waste_factor: 0.10, permit_flat_fee: 350, range_spread_pct: 12 }
       };
       await Config.create(seedConfig);
-      console.log('Configuration seeded successfully.');
     }
 
     const leadCount = await Lead.countDocuments();
     if (leadCount === 0) {
-      console.log('Seeding initial leads...');
       const seedLeads = [
         { id: "ld_1041", captured_at: "2026-06-02T14:20:11Z", config_version: 3, name: "Ana Ruiz", phone: "+1-614-555-0148", email: "aruiz@example.com", answers: { roof_area: 2100, material: "asphalt_arch", pitch: "medium", layers: "1", stories: "2" }, estimate_low: 21480, estimate_high: 27260 },
         { id: "ld_0917", captured_at: "2026-03-18T09:02:44Z", config_version: 1, name: "Bill Tanner", phone: "+1-614-555-0192", email: "btanner@example.com", answers: { roof_area: 1450, material: "slate_natural", pitch: "steep", chimney_count: 2, gutter_replace: "yes" }, estimate_low: 38900, estimate_high: 44100 },
         { id: "ld_1102", captured_at: "2026-07-11T18:47:03Z", config_version: 3, name: "Priya Nair", phone: "+1-614-555-0177", email: "pnair@example.com", answers: { roof_area: 900, material: "metal_standing", pitch: "low", layers: "0", stories: "1" }, estimate_low: 12240, estimate_high: 15530 }
       ];
       await Lead.insertMany(seedLeads);
-      console.log('Leads seeded successfully.');
     }
   } catch (error) {
-    console.error(`Seed Error: ${error.message}`);
+    console.error(error);
   }
 };
