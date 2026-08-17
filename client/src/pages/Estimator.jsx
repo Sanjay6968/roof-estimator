@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getConfig, submitEstimate } from '../services/api';
 import QuestionField from '../components/dynamic/QuestionField';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/card';
 
 export default function Estimator() {
   const [config, setConfig] = useState(null);
@@ -74,104 +78,74 @@ export default function Estimator() {
   
   if (estimate) {
     return (
-      <div className="max-w-xl mx-auto p-6 bg-white shadow rounded-xl mt-12">
-        <h2 className="text-2xl font-bold text-center mb-6">Your Roof Estimate</h2>
-        <div className="bg-blue-50 p-6 rounded-lg text-center">
-          <p className="text-lg text-gray-700 mb-2">Estimated Cost Range:</p>
-          <p className="text-4xl font-extrabold text-blue-700">
-            {new Intl.NumberFormat('en-US', { style: 'currency', currency: config.business.currency }).format(estimate.estimate_low)} 
-            {' - '}
-            {new Intl.NumberFormat('en-US', { style: 'currency', currency: config.business.currency }).format(estimate.estimate_high)}
-          </p>
-        </div>
-        <p className="text-center mt-6 text-gray-500">
-          Thank you, {contact.name}. We will be in touch shortly.
-        </p>
+      <div className="max-w-xl mx-auto mt-12">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center text-2xl">Your Roof Estimate</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-slate-100 p-6 rounded-lg text-center">
+              <p className="text-lg text-slate-700 mb-2">Estimated Cost Range:</p>
+              <p className="text-4xl font-extrabold text-slate-900">
+                {new Intl.NumberFormat('en-US', { style: 'currency', currency: config.business.currency }).format(estimate.estimate_low)} 
+                {' - '}
+                {new Intl.NumberFormat('en-US', { style: 'currency', currency: config.business.currency }).format(estimate.estimate_high)}
+              </p>
+            </div>
+            <p className="text-center mt-6 text-slate-500">
+              Thank you, {contact.name}. We will be in touch shortly.
+            </p>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-12 border border-gray-100">
-      <h1 className="text-2xl font-bold text-center mb-2">{config.business.name}</h1>
-      <p className="text-center text-gray-500 mb-8">Instant Roof Estimator</p>
-
-      {!isContactStep ? (
-        <div>
-          <QuestionField
-            question={config.questions[step]}
-            value={answers[config.questions[step].key]}
-            onChange={handleAnswerChange}
-          />
-          <div className="flex justify-between mt-8">
-            <button
-              onClick={handleBack}
-              disabled={step === 0}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded disabled:opacity-50"
-            >
-              Back
-            </button>
-            <button
-              onClick={handleNext}
-              className="px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700"
-            >
-              Next
-            </button>
-          </div>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <h2 className="text-xl font-bold mb-4">Where should we send your estimate?</h2>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              value={contact.name}
-              onChange={handleContactChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-            <input
-              type="tel"
-              name="phone"
-              required
-              value={contact.phone}
-              onChange={handleContactChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              required
-              value={contact.email}
-              onChange={handleContactChange}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div className="flex justify-between mt-8">
-            <button
-              type="button"
-              onClick={handleBack}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded"
-            >
-              Back
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2 bg-green-600 text-white font-bold rounded hover:bg-green-700"
-            >
-              Get My Estimate
-            </button>
-          </div>
-        </form>
-      )}
+    <div className="max-w-xl mx-auto mt-12">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">{config.business.name}</CardTitle>
+          <CardDescription className="text-center">Instant Roof Estimator</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {!isContactStep ? (
+            <div>
+              <QuestionField
+                question={config.questions[step]}
+                value={answers[config.questions[step].key]}
+                onChange={handleAnswerChange}
+              />
+            </div>
+          ) : (
+            <form id="contact-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <h2 className="text-xl font-bold mb-2">Where should we send your estimate?</h2>
+              <div>
+                <Label htmlFor="name">Name</Label>
+                <Input type="text" id="name" name="name" required value={contact.name} onChange={handleContactChange} />
+              </div>
+              <div>
+                <Label htmlFor="phone">Phone</Label>
+                <Input type="tel" id="phone" name="phone" required value={contact.phone} onChange={handleContactChange} />
+              </div>
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input type="email" id="email" name="email" required value={contact.email} onChange={handleContactChange} />
+              </div>
+            </form>
+          )}
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline" onClick={handleBack} disabled={step === 0}>
+            Back
+          </Button>
+          {!isContactStep ? (
+            <Button onClick={handleNext}>Next</Button>
+          ) : (
+            <Button type="submit" form="contact-form" variant="default">Get My Estimate</Button>
+          )}
+        </CardFooter>
+      </Card>
     </div>
   );
 }
