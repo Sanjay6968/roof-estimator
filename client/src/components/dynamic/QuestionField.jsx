@@ -4,7 +4,7 @@ import { Label } from '../ui/label';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 export default function QuestionField({ question, value, onChange }) {
-  if (!question.active) return null;
+  if (question.active === false) return null;
 
   if (question.type === 'number') {
     return (

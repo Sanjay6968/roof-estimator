@@ -21,6 +21,7 @@ router.get('/config', async (req, res) => {
         required: q.required,
         min: q.min,
         max: q.max,
+        active: q.active,
         options: q.options ? q.options.map(opt => ({ value: opt.value, label: opt.label })) : undefined
       };
     });
