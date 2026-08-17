@@ -21,18 +21,35 @@ export default function Admin() {
       return;
     }
 
-    Promise.all([getLeads(), getAdminConfig()])
-      .then(([leadsRes, configRes]) => {
+    const fetchInitialData = async () => {
+      try {
+        const [leadsRes, configRes] = await Promise.all([getLeads(), getAdminConfig()]);
         setLeads(leadsRes.data);
         setConfig(configRes.data);
         setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         if (err.response?.status === 401) {
           localStorage.removeItem('ownerToken');
           navigate('/login');
         }
-      });
+      }
+    };
+
+    fetchInitialData();
+
+    // Auto-update leads every 10 seconds
+    const interval = setInterval(() => {
+      getLeads()
+        .then(res => setLeads(res.data))
+        .catch(err => {
+          if (err.response?.status === 401) {
+            localStorage.removeItem('ownerToken');
+            navigate('/login');
+          }
+        });
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, [navigate]);
 
   const handleConfigChange = (questionIndex, field, value) => {
