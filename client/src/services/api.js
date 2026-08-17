@@ -14,8 +14,14 @@ api.interceptors.request.use((config) => {
 
 export const getConfig = () => api.get('/config');
 export const submitEstimate = (data) => api.post('/estimate', data);
-export const login = (username, password) => api.post('/auth/login', { username, password });
+export const login = (username, password) => {
+  const token = btoa(`${username}:${password}`);
+  return api.post('/auth/login', null, {
+    headers: { Authorization: `Basic ${token}` }
+  });
+};
 export const getLeads = () => api.get('/admin/leads');
-export const updateConfig = (data) => api.put('/admin/config', data);
+export const getAdminConfig = () => api.get('/admin/config');
+export const updateConfig = (config) => api.put('/admin/config', config);
 
 export default api;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getLeads, getConfig, updateConfig } from '../services/api';
+import { getLeads, getAdminConfig, updateConfig } from '../services/api';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -21,7 +21,7 @@ export default function Admin() {
       return;
     }
 
-    Promise.all([getLeads(), getConfig()])
+    Promise.all([getLeads(), getAdminConfig()])
       .then(([leadsRes, configRes]) => {
         setLeads(leadsRes.data);
         setConfig(configRes.data);

@@ -16,6 +16,18 @@ router.get('/leads', async (req, res) => {
   }
 });
 
+router.get('/config', async (req, res) => {
+  try {
+    const config = await Config.findOne().sort({ config_version: -1 });
+    if (!config) {
+      return res.status(404).json({ error: 'Configuration not found' });
+    }
+    res.json(config);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 router.put('/config', async (req, res) => {
   try {
     const { questions, modifiers, business } = req.body;
