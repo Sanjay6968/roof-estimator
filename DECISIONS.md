@@ -25,6 +25,11 @@ rather than mutated in place, so there's an implicit version history even
 without a dedicated UI for it, and no in-progress edit can corrupt the
 currently-live config.
 
+**Admin Panel Discoverability:** The admin dashboard route (`/admin`) is accessible
+via a subtle, low-contrast "Owner Login" link at the bottom footer of the estimator.
+This ensures the business owners have an easy backdoor entry point without confusing
+or distracting homeowners who are navigating the primary estimate flow.
+
 ## Calculation Formula
 
 The estimate is a range, not a fixed number, because roofing costs vary with
