@@ -136,7 +136,7 @@ export default function Estimator() {
           </CardContent>
         </Card>
         <div className="text-center mt-8">
-          <Link to="/admin" className="text-xs text-slate-300 hover:text-slate-500 transition-colors">Owner Login</Link>
+          <Link to="/admin" className="text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors">Owner Login</Link>
         </div>
       </div>
     );
@@ -190,7 +190,7 @@ export default function Estimator() {
         </CardFooter>
       </Card>
       <div className="text-center mt-8">
-        <Link to="/admin" className="text-xs text-slate-300 hover:text-slate-500 transition-colors">Owner Login</Link>
+        <Link to="/admin" className="text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors">Owner Login</Link>
       </div>
     </div>
   );

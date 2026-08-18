@@ -1,62 +1,50 @@
-# Northline Roofing & Exteriors Estimator
+# Northline Roofing & Exteriors - Instant Roof Estimator
 
-A full-stack, config-driven estimator built for Northline Roofing & Exteriors as part of the Wantace SDE Intern Take-Home Task.
+A dynamic, full-stack lead generation and estimation tool built for Northline Roofing. This monorepo contains a React frontend (Vite) and an Express/MongoDB backend.
 
 ## Features
-- **Public Estimator:** A multi-step form dynamically generated from the backend configuration. Calculates estimated project costs safely on the server.
-- **Admin Dashboard:** A protected panel to view captured leads and configure the estimator's rates, labels, and question visibility. 
 
-## Technology Stack
-- **Frontend:** React, Vite, Tailwind CSS, Shadcn UI
-- **Backend:** Node.js, Express, Mongoose
-- **Database:** MongoDB
+- **Dynamic Estimator Flow:** A multi-step form built dynamically from the database configuration.
+- **Real-Time Pricing Engine:** Calculates a low/high estimate range based on square footage, material rates, pitch difficulty, stories, tear-off rates, waste factor, and permit fees.
+- **Display-Only Currency Conversion:** Homeowners can view estimates in their preferred currency (USD, EUR, GBP, INR) without altering the core USD business logic.
+- **Strict Version-Locking:** The estimate calculates strictly against the configuration version active when the homeowner started the form, preventing mid-session schema crashes if an admin deletes an option.
+- **Owner Dashboard (Admin Panel):** A secure portal where business owners can:
+  - Toggle questions on/off and edit dynamic material pricing/multipliers on the fly.
+  - View all captured leads in a real-time auto-polling table.
+- **Security through Obscurity + Obfuscation:** The public API strips pricing multipliers so competitors cannot reverse-engineer the rates from the browser network tab.
 
-## Prerequisites
-- Node.js (v18+)
-- MongoDB (local instance running on `mongodb://localhost:27017` or a remote URI)
+## Architecture
 
-## Local Setup
+- **Frontend:** React, Vite, Tailwind CSS v4, Lucide Icons, Shadcn UI Components.
+- **Backend:** Node.js, Express, Mongoose (MongoDB).
+- **Authentication:** Lightweight encoded Basic Auth for the Owner Panel.
 
-### 1. Backend Setup
-Navigate into the `server` directory and install dependencies:
-```bash
-cd server
-npm install
-```
+## Setup Instructions
 
-Create a `.env` file in the `server` directory (optional defaults are already fallback if omitted):
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/wantace-roofing
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=roofing2026!
-```
+### Backend Setup
+1. `cd server`
+2. `npm install`
+3. Create a `.env` file in the `server` directory and add your MongoDB connection string:
+   ```env
+   MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.g8jz9xm.mongodb.net/wantace-roofing?retryWrites=true&w=majority
+   ```
+4. Run `npm start` (or `npm run dev` for nodemon). The server runs on port 5000.
+5. *Note: If the database is completely empty, the backend will automatically seed the initial configuration schema and a historical lead upon starting.*
 
-Start the backend server:
-```bash
-npm start
-# or 
-node src/index.js
-```
-*(The server will automatically seed the initial configuration and existing leads into your database on startup).*
+### Frontend Setup
+1. `cd client`
+2. `npm install`
+3. Make sure `client/src/services/api.js` points to your running backend (`http://localhost:5000/api` for local dev).
+4. Run `npm run dev`. The Vite server runs on port 5173.
 
-### 2. Frontend Setup
-In a new terminal window, navigate to the `client` directory:
-```bash
-cd client
-npm install
-```
+## Live Deployment Links
 
-Start the Vite development server:
-```bash
-npm run dev
-```
+- **Frontend (Estimator):** [https://roof-estimator-lovat.vercel.app](https://roof-estimator-lovat.vercel.app)
+- **Frontend (Admin Panel):** [https://roof-estimator-lovat.vercel.app/admin](https://roof-estimator-lovat.vercel.app/admin) (Credentials: `admin` / `roofing2026!`)
+- **Backend API:** [https://roof-estimator-97aw.onrender.com](https://roof-estimator-97aw.onrender.com)
 
-## Usage & Testing
-- **Public Estimator:** Access the estimator at `http://localhost:5173`.
-- **Admin Panel:** Access the owner panel at `http://localhost:5173/admin` or `http://localhost:5173/login`.
-- **Admin Credentials:**
-  - Username: `admin`
-  - Password: `roofing2026!`
+## Documentation
 
-The frontend uses standard Axios intercepts to manage basic authentication using localStorage. Changes in the Admin configuration tab will be instantly reflected on the Public Estimator.
+For full details on the architectural tradeoffs, calculations, and AI pair-programming logs, please see:
+- [`DECISIONS.md`](./DECISIONS.md) - Product decisions, assumptions, and formulas.
+- [`AI_LOG.md`](./AI_LOG.md) - Record of AI syntax mistakes/hallucinations and how they were caught.
