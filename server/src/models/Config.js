@@ -31,7 +31,12 @@ const ConfigSchema = new mongoose.Schema({
   modifiers: {
     waste_factor: { type: Number, default: 0.10 },
     permit_flat_fee: { type: Number, default: 350 },
-    range_spread_pct: { type: Number, default: 12 }
+    range_spread_pct: { type: Number, default: 12 },
+    currency_rates: { 
+      type: Map, 
+      of: Number, 
+      default: { USD: 1, EUR: 0.92, GBP: 0.79, INR: 83.1 } 
+    }
   }
 }, { timestamps: true });
 

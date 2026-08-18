@@ -68,6 +68,13 @@ needed for the core flow — estimator → lead capture → owner visibility —
 work end to end. I prioritized finishing that core flow cleanly over
 partially building any of these.
 
+**Display-Only Currency Selection:** Added an optional display-currency selector
+on the estimate result. Conversion rates are stored in config (owner-editable via
+direct DB update, not yet exposed in the admin UI) rather than fetched from a live
+exchange-rate API — the business still operates and invoices in USD; the selector
+is a convenience for how the number is displayed, not a change to what's actually
+quoted or stored on the lead.
+
 ## Seed Data Oddities & Handling
 
 Two issues in the seed data:

@@ -29,6 +29,9 @@ router.get('/config', async (req, res) => {
     res.json({
       config_version: config.config_version,
       business: config.business,
+      modifiers: {
+        currency_rates: config.modifiers?.currency_rates || { USD: 1, EUR: 0.92, GBP: 0.79, INR: 83.1 }
+      },
       questions: activeQuestions
     });
   } catch (error) {

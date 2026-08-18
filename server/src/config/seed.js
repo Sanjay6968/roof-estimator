@@ -33,7 +33,12 @@ export const seedDatabase = async () => {
             { value: "3", label: "Three or more", multiplier: 1.18 }
           ] }
         ],
-        modifiers: { waste_factor: 0.10, permit_flat_fee: 350, range_spread_pct: 12 }
+        modifiers: { 
+          waste_factor: 0.10, 
+          permit_flat_fee: 350, 
+          range_spread_pct: 12,
+          currency_rates: { USD: 1, EUR: 0.92, GBP: 0.79, INR: 83.1 }
+        }
       };
       await Config.create(seedConfig);
     }

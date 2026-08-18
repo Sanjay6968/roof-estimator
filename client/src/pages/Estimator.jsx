@@ -12,6 +12,7 @@ export default function Estimator() {
   const [contact, setContact] = useState({ name: '', phone: '', email: '' });
   const [step, setStep] = useState(0);
   const [estimate, setEstimate] = useState(null);
+  const [displayCurrency, setDisplayCurrency] = useState('USD');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [validationError, setValidationError] = useState('');
@@ -21,6 +22,7 @@ export default function Estimator() {
     getConfig()
       .then((res) => {
         setConfig(res.data);
+        setDisplayCurrency(res.data.business.currency);
         setLoading(false);
       })
       .catch(() => {
@@ -97,6 +99,10 @@ export default function Estimator() {
   const isContactStep = step === config.questions.length;
   
   if (estimate) {
+    const conversionRate = config.modifiers?.currency_rates?.[displayCurrency] || 1;
+    const dispLow = estimate.estimate_low * conversionRate;
+    const dispHigh = estimate.estimate_high * conversionRate;
+    
     return (
       <div className="max-w-xl mx-auto mt-12 p-4">
         <Card>
@@ -104,12 +110,23 @@ export default function Estimator() {
             <CardTitle className="text-center text-2xl">Your Roof Estimate</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-slate-100 p-6 rounded-lg text-center">
-              <p className="text-lg text-slate-700 mb-2">Estimated Cost Range:</p>
+            <div className="bg-slate-100 p-6 rounded-lg text-center relative">
+              <div className="absolute top-4 right-4">
+                <select 
+                  className="bg-transparent text-sm text-slate-500 font-medium outline-none border-b border-slate-300 pb-1 cursor-pointer"
+                  value={displayCurrency}
+                  onChange={(e) => setDisplayCurrency(e.target.value)}
+                >
+                  {Object.keys(config.modifiers?.currency_rates || { USD: 1 }).map(cur => (
+                    <option key={cur} value={cur}>{cur}</option>
+                  ))}
+                </select>
+              </div>
+              <p className="text-lg text-slate-700 mb-2 mt-4">Estimated Cost Range:</p>
               <p className="text-4xl font-extrabold text-slate-900">
-                {new Intl.NumberFormat('en-US', { style: 'currency', currency: config.business.currency, maximumFractionDigits: 0 }).format(estimate.estimate_low)} 
+                {new Intl.NumberFormat('en-US', { style: 'currency', currency: displayCurrency, maximumFractionDigits: 0 }).format(dispLow)} 
                 {' - '}
-                {new Intl.NumberFormat('en-US', { style: 'currency', currency: config.business.currency, maximumFractionDigits: 0 }).format(estimate.estimate_high)}
+                {new Intl.NumberFormat('en-US', { style: 'currency', currency: displayCurrency, maximumFractionDigits: 0 }).format(dispHigh)}
               </p>
             </div>
             <p className="text-center mt-6 text-slate-500">
