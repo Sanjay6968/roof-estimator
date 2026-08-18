@@ -25,10 +25,10 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-24 px-4">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center text-2xl">Owner Login</CardTitle>
+    <div className="w-full max-w-md mx-auto p-4">
+      <Card className="shadow-2xl border-0 ring-1 ring-slate-900/5 bg-white/90 backdrop-blur-sm transition-all duration-300">
+        <CardHeader className="pb-8">
+          <CardTitle className="text-center text-3xl font-extrabold tracking-tight text-slate-900">Owner Login</CardTitle>
         </CardHeader>
         <CardContent>
           <form id="login-form" onSubmit={handleLogin} className="flex flex-col gap-4">

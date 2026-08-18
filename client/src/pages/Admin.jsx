@@ -78,10 +78,10 @@ export default function Admin() {
   if (loading) return <div className="p-8 text-center text-slate-500">Loading dashboard...</div>;
 
   return (
-    <div className="max-w-6xl mx-auto mt-8 p-4">
+    <div className="w-full max-w-6xl mx-auto p-4">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Owner Dashboard</h1>
-        <Button variant="outline" onClick={() => { localStorage.removeItem('ownerToken'); navigate('/login'); }}>
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Owner Dashboard</h1>
+        <Button variant="outline" onClick={() => { localStorage.removeItem('ownerToken'); navigate('/login'); }} className="bg-white/80 hover:bg-white shadow-sm border-slate-200 text-slate-700">
           Logout
         </Button>
       </div>
@@ -93,7 +93,7 @@ export default function Admin() {
         </TabsList>
 
         <TabsContent value="leads">
-          <div className="bg-white rounded-lg shadow border overflow-x-auto">
+          <div className="rounded-xl shadow-2xl border-0 ring-1 ring-slate-900/5 bg-white/90 backdrop-blur-sm overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -134,9 +134,9 @@ export default function Admin() {
         </TabsContent>
 
         <TabsContent value="config">
-          <div className="bg-white rounded-lg shadow border p-6">
+          <div className="rounded-xl shadow-2xl border-0 ring-1 ring-slate-900/5 bg-white/90 backdrop-blur-sm p-8">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">Estimator Questions & Rates</h2>
+              <h2 className="text-xl font-bold text-slate-900">Estimator Questions & Rates</h2>
               <div className="flex items-center gap-4">
                 <span className="text-sm font-medium text-green-600">{saveStatus}</span>
                 <Button onClick={handleSaveConfig}>Save Changes</Button>
