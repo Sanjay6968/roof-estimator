@@ -26,7 +26,7 @@ A dynamic, full-stack lead generation and estimation tool built for Northline Ro
 2. `npm install`
 3. Create a `.env` file in the `server` directory and add your MongoDB connection string:
    ```env
-   MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.g8jz9xm.mongodb.net/wantace-roofing?retryWrites=true&w=majority
+   MONGODB_URI=mongodb+srv://<your-username>:<your-password>@cluster0.g8jz9xm.mongodb.net/wantace-roofing?retryWrites=true&w=majority
    ```
 4. Run `npm start` (or `npm run dev` for nodemon). The server runs on port 5000.
 5. *Note: If the database is completely empty, the backend will automatically seed the initial configuration schema and a historical lead upon starting.*
