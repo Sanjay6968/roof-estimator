@@ -7,7 +7,7 @@ import Login from './pages/Login';
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-slate-50 py-12">
+      <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-100 via-blue-50 to-slate-200 py-12 flex flex-col justify-center">
         <Routes>
           <Route path="/" element={<Estimator />} />
           <Route path="/admin" element={<Admin />} />

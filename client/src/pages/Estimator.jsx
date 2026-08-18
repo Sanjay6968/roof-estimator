@@ -105,10 +105,10 @@ export default function Estimator() {
     const dispHigh = estimate.estimate_high * conversionRate;
     
     return (
-      <div className="max-w-xl mx-auto mt-12 p-4">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">Your Roof Estimate</CardTitle>
+      <div className="w-full max-w-xl mx-auto p-4">
+        <Card className="shadow-2xl border-0 ring-1 ring-slate-900/5 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]">
+          <CardHeader className="pb-8">
+            <CardTitle className="text-center text-3xl font-extrabold tracking-tight text-slate-900">Your Roof Estimate</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="bg-slate-100 p-6 rounded-lg text-center relative">
@@ -143,11 +143,11 @@ export default function Estimator() {
   }
 
   return (
-    <div className="max-w-xl mx-auto mt-12 p-4">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center text-2xl">{config.business.name}</CardTitle>
-          <CardDescription className="text-center">Instant Roof Estimator</CardDescription>
+    <div className="w-full max-w-xl mx-auto p-4">
+      <Card className="shadow-2xl border-0 ring-1 ring-slate-900/5 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]">
+        <CardHeader className="pb-8">
+          <CardTitle className="text-center text-3xl font-extrabold tracking-tight text-slate-900">{config.business.name}</CardTitle>
+          <CardDescription className="text-center text-base mt-2">Instant Roof Estimator</CardDescription>
         </CardHeader>
         <CardContent>
           {!isContactStep ? (
