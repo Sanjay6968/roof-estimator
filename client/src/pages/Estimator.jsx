@@ -75,6 +75,12 @@ export default function Estimator() {
       setSubmitError('Please fill out all contact details.');
       return;
     }
+
+    const phoneDigits = contact.phone.replace(/\D/g, '');
+    if (phoneDigits.length !== 10) {
+      setSubmitError('Please enter a valid 10-digit phone number.');
+      return;
+    }
     
     try {
       const payload = {
@@ -168,7 +174,7 @@ export default function Estimator() {
               </div>
               <div>
                 <Label htmlFor="phone">Phone</Label>
-                <Input type="tel" id="phone" name="phone" required value={contact.phone} onChange={handleContactChange} />
+                <Input type="tel" id="phone" name="phone" pattern="\d{10}" title="10-digit phone number" minLength={10} maxLength={10} required value={contact.phone} onChange={handleContactChange} />
               </div>
               <div>
                 <Label htmlFor="email">Email</Label>
