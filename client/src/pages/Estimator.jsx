@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getConfig, submitEstimate } from '../services/api';
 import QuestionField from '../components/dynamic/QuestionField';
 import { Button } from '../components/ui/button';
@@ -134,6 +135,9 @@ export default function Estimator() {
             </p>
           </CardContent>
         </Card>
+        <div className="text-center mt-8">
+          <Link to="/admin" className="text-xs text-slate-300 hover:text-slate-500 transition-colors">Owner Login</Link>
+        </div>
       </div>
     );
   }
@@ -185,6 +189,9 @@ export default function Estimator() {
           )}
         </CardFooter>
       </Card>
+      <div className="text-center mt-8">
+        <Link to="/admin" className="text-xs text-slate-300 hover:text-slate-500 transition-colors">Owner Login</Link>
+      </div>
     </div>
   );
 }
