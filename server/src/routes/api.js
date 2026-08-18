@@ -38,12 +38,16 @@ router.get('/config', async (req, res) => {
 
 router.post('/estimate', async (req, res) => {
   try {
-    const { name, phone, email, answers } = req.body;
+    const { name, phone, email, answers, config_version } = req.body;
     
-    const config = await Config.findOne().sort({ config_version: -1 });
+    if (!config_version) {
+      return res.status(400).json({ error: 'Missing config_version in payload' });
+    }
+
+    const config = await Config.findOne({ config_version });
     
     if (!config) {
-      return res.status(404).json({ error: 'Configuration not found' });
+      return res.status(410).json({ error: 'Configuration expired' });
     }
 
     const estimate = calculateEstimate(config, answers);

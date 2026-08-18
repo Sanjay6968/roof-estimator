@@ -76,12 +76,17 @@ export default function Estimator() {
     try {
       const payload = {
         ...contact,
-        answers
+        answers,
+        config_version: config.config_version
       };
       const res = await submitEstimate(payload);
       setEstimate(res.data);
     } catch (err) {
-      setSubmitError('Failed to submit estimate. Please try again.');
+      if (err.response && err.response.status === 410) {
+        setSubmitError('This estimate session has expired due to pricing updates. Please refresh the page to restart.');
+      } else {
+        setSubmitError('Failed to submit estimate. Please try again.');
+      }
     }
   };
 
