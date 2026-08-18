@@ -43,6 +43,8 @@ A dynamic, full-stack lead generation and estimation tool built for Northline Ro
 - **Frontend (Admin Panel):** [https://roof-estimator-lovat.vercel.app/admin](https://roof-estimator-lovat.vercel.app/admin) (Credentials: `admin` / `roofing2026!`)
 - **Backend API:** [https://roof-estimator-97aw.onrender.com](https://roof-estimator-97aw.onrender.com)
 
+> **Note on Deployment:** The backend is hosted on Render's free tier. If the service has been idle for 15 minutes, it will spin down. It may take 15–30 seconds to "wake up" on the first request, which might cause the initial estimator load to hang briefly. This is expected behavior for the free tier.
+
 ## Documentation
 
 For full details on the architectural tradeoffs, calculations, and AI pair-programming logs, please see:
